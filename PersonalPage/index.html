@@ -8,9 +8,8 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="page">
-  <!-- Dark mode toggle button is created by JS -->
+  <canvas id="bgCanvas"></canvas>
 
-  <!-- Top header bar -->
   <header class="top-bar">
     <span class="logo">Nheil Eduria <span class="role">/ Aspiring Web Developer</span></span>
     <nav>
@@ -20,9 +19,7 @@
     </nav>
   </header>
 
-  <!-- Main split layout -->
   <main class="main">
-    <!-- Left profile card -->
     <div class="profile-card">
       <img src="assets/me.webp" alt="Profile photo">
       <h2>Nheil Eduria</h2>
@@ -33,47 +30,33 @@
       </div>
     </div>
 
-    <!-- Right intro section -->
     <div class="intro" id="intro-section">
-      <!-- This part hides on projects view -->
       <div id="intro-header">
         <h1>Hello!</h1>
         <p class="subtitle">Here’s who I am & what I do</p>
       </div>
 
-      <!-- Buttons always visible -->
       <div class="buttons">
         <a href="#" class="btn active" id="resumeBtn">ABOUT ME</a>
         <a href="#" class="btn" id="projectsBtn">PROJECTS</a>
       </div>
 
-      <!-- Dynamic content area -->
       <div id="intro-content">
         <p class="description">
-            I'm a Computer Science student at Batangas State University.<br>
-            I'm an aspiring web developer passionate about building interactive and user-friendly websites.
-            My goal is to grow into a back-end developer and contribute to innovative digital solutions.
+          I'm a Computer Science student at Batangas State University.<br>
+          I'm an aspiring web developer passionate about building interactive and user-friendly websites.
+          My goal is to grow into a back-end developer and contribute to innovative digital solutions.
         </p>
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <p>© 2025 Nheil Eduria |
       <a href="https://www.facebook.com/nheil.eduria.7" target="_blank">Facebook</a> |
       <a href="https://github.com/nheil15" target="_blank">GitHub</a>
     </p>
   </footer>
-
-  <!-- Popup Modal -->
-  <div id="projectModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h3 id="modalTitle"></h3>
-      <p id="modalDescription"></p>
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>

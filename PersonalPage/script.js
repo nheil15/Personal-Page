@@ -1,4 +1,3 @@
-// === Dark mode toggle ===
 const toggleButton = document.createElement('button');
 toggleButton.style.position = 'fixed';
 toggleButton.style.top = '20px';
@@ -22,20 +21,24 @@ toggleButton.appendChild(icon);
 
 document.body.appendChild(toggleButton);
 
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+
 toggleButton.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
   if (document.body.classList.contains('dark-mode')) {
     icon.classList.replace('fa-moon', 'fa-sun');
     toggleButton.style.backgroundColor = '#fff';
     icon.style.color = '#000';
+    canvas.style.background = '#000'; 
   } else {
     icon.classList.replace('fa-sun', 'fa-moon');
-    toggleButton.style.backgroundColor = '#444';
+    toggleButton.style.backgroundColor = '#555';
     icon.style.color = '#fff';
+    canvas.style.background = '#fff'; 
   }
 });
 
-// === Resume / Projects Tab Logic ===
 const resumeBtn = document.getElementById('resumeBtn');
 const projectsBtn = document.getElementById('projectsBtn');
 const introContent = document.getElementById('intro-content');
@@ -49,23 +52,23 @@ projectsBtn.addEventListener('click', (e) => {
     <div class="projects-container">
       <div class="project-card">
         <h3>LAKAYA</h3>
-        <p>Aim to foster collaboration that empowers local fishing communities while
-         enabling investors to make impactful, environmentally-conscious decisions.</p>
+        <p>Aim to foster collaboration that empowers local fishing communities while enabling investors 
+        to make impactful, environmentally-conscious decisions.</p>
       </div>
       <div class="project-card">
         <h3>e-BOTO</h3>
-        <p>e-BOTO is a web-based digital voting platform designed to transition traditional 
-        paper-based elections into a more modern, efficient, and secure process. </p>
+        <p>e-BOTO is a web-based digital voting platform designed to transition traditional paper-based 
+        elections into a more modern, efficient, and secure process.</p>
       </div>
       <div class="project-card">
         <h3>Tapsitlog</h3>
-        <p>TapSitLog is a QR code-based restaurant ordering system designed to enhance 
-        the dining experience and improve operational efficiency. </p>
+        <p>TapSitLog is a QR code-based restaurant ordering system designed to enhance the dining experience 
+        and improve operational efficiency.</p>
       </div>
       <div class="project-card">
         <h3>APOTHECARE</h3>
-        <p>A digitalized POS system that runs through a website platform. Apothecare is a 
-        pharmacy with a solid database of medicines that involves a point-of-sale system that ensures fast product transactions. </p>
+        <p>A digitalized POS system that runs through a website platform. Apothecare is a pharmacy with a 
+        solid database of medicines that involves a point-of-sale system that ensures fast product transactions.</p>
       </div>
     </div>
   `;
@@ -81,7 +84,6 @@ resumeBtn.addEventListener('click', (e) => {
   projectsBtn.classList.remove('active');
 });
 
-// === Popup behavior for project cards ===
 document.addEventListener('click', function (e) {
   const clickedCard = e.target.closest('.project-card');
   if (!clickedCard) return;
@@ -110,7 +112,6 @@ document.addEventListener('click', function (e) {
   });
 });
 
-// === Top nav text highlight logic ===
 const aboutLink = document.querySelector('a[href="#about"]');
 const projectsLink = document.querySelector('a[href="#projects"]');
 const contactLink = document.querySelector('a[href="#contact"]');
@@ -121,22 +122,82 @@ function highlightTempText(element) {
   setTimeout(() => element.classList.remove('temp-text-highlight'), 1500);
 }
 
-// About Me click
 aboutLink.addEventListener('click', (e) => {
   e.preventDefault();
   resumeBtn.click();
   highlightTempText(resumeBtn);
 });
 
-// Projects click
 projectsLink.addEventListener('click', (e) => {
   e.preventDefault();
   projectsBtn.click();
   highlightTempText(projectsBtn);
 });
 
-// Contact click
 contactLink.addEventListener('click', (e) => {
   e.preventDefault();
   document.querySelectorAll('.social-links a').forEach(link => highlightTempText(link));
+  document.querySelectorAll('footer a').forEach(link => highlightTempText(link));
 });
+
+let particles = [];
+const particleCount = 120;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.radius = Math.random() * 2 + 1;
+    this.speedX = (Math.random() - 0.7) * 0.9;
+    this.speedY = (Math.random() - 0.7) * 0.9;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+    ctx.fillStyle = document.body.classList.contains('dark-mode') 
+        ? 'rgba(255, 255, 255, 0.7)' 
+        : 'rgba(0, 0, 0, 0.7)';      
+    ctx.fill();
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+}
+
+for(let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      let dx = particles[i].x - particles[j].x;
+      let dy = particles[i].y - particles[j].y;
+      let dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 100){
+        ctx.strokeStyle = document.body.classList.contains('dark-mode')
+            ? `rgba(255,255,255,${1 - dist/100})` 
+            : `rgba(0,0,0,${1 - dist/100})`;      
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  particles.forEach(p=>{p.update(); p.draw();});
+  requestAnimationFrame(animate);
+}
+animate();
