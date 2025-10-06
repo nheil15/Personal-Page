@@ -250,6 +250,15 @@ body.dark-mode .popup-card {
   color: #333;
 }
 
+.project-card h3 a {
+  text-decoration: none;   
+  color: inherit;          
+}
+
+.project-card h3 a:hover {
+  color: #007bff;        
+}
+
 @keyframes popUp {
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }

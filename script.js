@@ -51,22 +51,22 @@ projectsBtn.addEventListener('click', (e) => {
   introContent.innerHTML = `
     <div class="projects-container">
       <div class="project-card">
-        <h3>LAKAYA</h3>
+        <h3><a href="https://nheil15.github.io/LAKAYA/" target="_blank">LAKAYA</a></h3>
         <p>Aim to foster collaboration that empowers local fishing communities while enabling investors 
         to make impactful, environmentally-conscious decisions.</p>
       </div>
       <div class="project-card">
-        <h3>e-BOTO</h3>
+        <h3><a href="https://nheil15.github.io/e-BOTO/" target="_blank">e-BOTO</a></h3>
         <p>e-BOTO is a web-based digital voting platform designed to transition traditional paper-based 
         elections into a more modern, efficient, and secure process.</p>
       </div>
       <div class="project-card">
-        <h3>Tapsitlog</h3>
+        <h3><a href="https://nheil15.github.io/TapSitLog/" target="_blank">Tapsitlog</a></h3>
         <p>TapSitLog is a QR code-based restaurant ordering system designed to enhance the dining experience 
         and improve operational efficiency.</p>
       </div>
       <div class="project-card">
-        <h3>APOTHECARE</h3>
+        <h3><a href="https://nheil15.github.io/OOP-Final-/" target="_blank">APOTHECARE</a></h3>
         <p>A digitalized POS system that runs through a website platform. Apothecare is a pharmacy with a 
         solid database of medicines that involves a point-of-sale system that ensures fast product transactions.</p>
       </div>
